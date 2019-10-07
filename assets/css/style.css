@@ -1,0 +1,33 @@
+@font-face {
+    font-family: GOT;
+    src: url(../css/GOT.ttf)
+}
+
+body {
+    background-image: url(../images/knight.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#game-area {
+    background-color:rgba(54,54,54,.75);
+    color: antiquewhite;
+    width: 60%;
+    height: 450px;
+    margin: 0 auto;
+    margin-top: 25px;
+    border-radius: 20px;
+}
+
+#title {
+    font-family: GOT;
+    font-size: 36px;
+    padding: 10px;
+    color: antiquewhite;
+}
+
+#start {
+    color: rgb(209, 184, 42);
+    border-color: rgb(209, 184, 42);
+}
