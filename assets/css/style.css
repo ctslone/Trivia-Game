@@ -22,12 +22,14 @@ body {
 
 #title {
     font-family: GOT;
+    letter-spacing: 2px;
+    word-spacing: 3px;
     font-size: 36px;
     padding: 10px;
     color: antiquewhite;
 }
 
 #start {
-    color: rgb(209, 184, 42);
+    /* color: rgb(209, 184, 42); */
     border-color: rgb(209, 184, 42);
 }
