@@ -28,10 +28,14 @@ $(document).ready(function() {
     var rightAnswer = 0;
     var wrongAnswer = 0;
     var notAnswered = 0;
+    var userAnswer = "";
+    // this will be used to dictate which question to display. upon start, display question index 0 and when user annswers a question questionTracker++
+    var questionTracker = 0;
+    var time = 10;
 
     // creating the trivia questions. an array, that contains an array inside of an object...
     var triviaQuestions = [
-        {question: "Who created the Night King?",
+        {question: "Who created the White Walkers?",
         answers: ["The Children of the Forest", "The Red Woman", "The Wildlings", "The Faceless Men"],
         correctAnswer: "The Children of the Forest",
         // image: placehold
@@ -46,7 +50,7 @@ $(document).ready(function() {
         correctAnswer: "Right Hand",
         // image: placehold
         },
-        {question: "Who famousy said 'That's what I do. I drink and I know things'?",
+        {question: "Who famously said 'That's what I do. I drink and I know things'?",
         answers: ["Robert Baratheon", "Tyrion Lannister", "Varys", "The Hound"],
         correctAnswer: "Tyrion Lannister"
         // image: placehold
@@ -59,11 +63,56 @@ $(document).ready(function() {
         // remove button from screen
         // start.style.visibility = "hidden";
         $("#start").hide();
-        newQuestion();
+        firstQuestion();
     })
 
     // displaying the questions
-    function newQuestion() {
-        $("#question-area").append("<p>Test</p>")
+    function firstQuestion() {
+        console.log(triviaQuestions[questionTracker].question)
+        // display the first question in the array using the custon question tracker variable for index
+        $("#question-area").append("<p>" + triviaQuestions[questionTracker].question + "</p>")
+        // $("#timer").append("<p> Time remaining: " + setTimeout(function() { alert("Hello"); }, 3000) + "</p")
+        // use a for loop to display all of the answer choices
+        for (var i = 0; i<triviaQuestions[questionTracker].answers.length; i++) {
+            console.log(triviaQuestions[questionTracker].answers[i])
+            // prepending each answer as a button to the screen
+            $("#questions").append("<button type='button' class='answer-button d-flex justify-content-center btn btn-outline-warning btn-group-vertical'><p>" + triviaQuestions[questionTracker].answers[i] + "</p></button>" )
+            // $(".answer-button").text(triviaQuestions[questionTracker].answers[i])
+        }
+        buttonClick();
     }
+
+    // on click to determine if user picked right answer, out of time, or wrong answer
+    function buttonClick () {
+        $(".answer-button").on("click", function() {
+            userAnswer = $(".answer-button").children('button').attr('p');
+            console.log(userAnswer);
+            // if(userAnswer = triviaQuestions[questionTracker].correctAnswer) {
+            //     winner();
+            // }
+            // else if (number===0) {
+            //     timeUp();
+            // }
+            // else {
+            //     loser();
+            // }
+        })
+    }
+
+    // function winner() {
+    //     $("#question-area").append("Correct Answer");
+    //     rightAnswer++;
+    //     userAnswer = triviaQuestions[questionTracker].correctAnswer;
+    //     console.log(rightAnswer);
+    // };
+
+    // function timeUp() {
+    //     $("#question-area").append("Out of Time");
+    //     notAnswered++;
+    // };
+
+    // function loser() {
+    //     $("#question-area").append("Wong Answer");
+    //     wrongAnswer++;
+    // }
 })

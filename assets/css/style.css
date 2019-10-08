@@ -5,16 +5,17 @@
 
 body {
     background-image: url(../images/knight.jpg);
-    background-position: center;
+    background-position: center center;
     background-repeat: no-repeat;
+    background-attachment: fixed;
     background-size: cover;
 }
 
 #game-area {
     background-color:rgba(54,54,54,.75);
     color: antiquewhite;
-    width: 60%;
-    height: 450px;
+    width: 70%;
+    height: 80%;
     margin: 0 auto;
     margin-top: 25px;
     border-radius: 20px;
@@ -29,7 +30,21 @@ body {
     color: antiquewhite;
 }
 
+#question-area {
+    /* padding: 5px; */
+    /* text-align: center; */
+}
+
 #start {
     /* color: rgb(209, 184, 42); */
     border-color: rgb(209, 184, 42);
+}
+
+#questions {
+    height: 300px;
+    margin-bottom: 20px;
+}
+
+.answer-button {
+    margin: 5px;
 }
