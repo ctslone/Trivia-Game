@@ -53,7 +53,12 @@ $(document).ready(function() {
         },
         {question: "Who famously said 'That's what I do. I drink and I know things'?",
         answers: ["Robert Baratheon", "Tyrion Lannister", "Varys", "The Hound"],
-        correctAnswer: "Tyrion Lannister"
+        correctAnswer: "Tyrion Lannister",
+        // image: placehold
+        },
+        {question: "",
+        answers: [],
+        correctAnswer: "",
         // image: placehold
         }
         ]
@@ -69,11 +74,13 @@ $(document).ready(function() {
 
     // displaying the questions
     function firstQuestion() {
+        // emptying the divs before displaying a question
         $("#questions").empty();
         $("#question-area").empty();
-        console.log(triviaQuestions[questionTracker].question);
+            console.log(triviaQuestions[questionTracker].question);
+        // assigning the correct answer of the current question to a variable to compare later
         coreAnswer = triviaQuestions[questionTracker].correctAnswer;
-        console.log("The right answer is: " + coreAnswer);
+            console.log("The right answer is: " + coreAnswer);
         // display the first question in the array using the custon question tracker variable for index
         $("#question-area").append("<p>" + triviaQuestions[questionTracker].question + "</p>");
         // $("#timer").append("<p> Time remaining: " + setTimeout(function() { alert("Hello"); }, 5000) + "</p")
@@ -82,21 +89,21 @@ $(document).ready(function() {
             console.log(triviaQuestions[questionTracker].answers[i])
             // prepending each answer as a button to the screen
             $("#questions").append("<button type='button' data='" + triviaQuestions[questionTracker].answers[i] + "' class='answer-button d-flex justify-content-center btn btn-outline-warning btn-group-vertical'><p>" + triviaQuestions[questionTracker].answers[i] + "</p></button>")
-            // $(".answer-button").text(triviaQuestions[questionTracker].answers[i])
         }
-        questionTracker += 1
+        // adding one to the question tracker each time to tell it which question index to display (0-3)
+        questionTracker += 1;
+
+        if (questionTracker >= 5) {
+            $("#question-area").empty().text("Your Game hath Concluded").append("<div>You got " + rightAnswer + " answers right</div>").append("<div>You got " + wrongAnswer + " answers wrong</div>")
+            $("#questions").empty().append("<button id='reset-button' type='button' class='btn btn-lg btn-outline-warning'>Play Again?</button>").append("<img src='assets/images/new-game.gif'height='175px' width='275px'/>")
+
+            return;
+             
+        }
+    
     }
-    // function that runs the next question
-    // function nextQuestion() {
-    //     $("#question-area").append("<p>" + triviaQuestions[questionTracker].question + "</p>");
-    //     questionTracker++;
-    //     for (var i = 0; i<triviaQuestions[questionTracker].answers.length; i++) {
-    //         console.log(triviaQuestions[questionTracker].answers[i])
-    //         // prepending each answer as a button to the screen
-    //         $("#questions").append("<button type='button' class='answer-button d-flex justify-content-center btn btn-outline-warning btn-group-vertical'><p>" + triviaQuestions[questionTracker].answers[i] + "</p></button>" )
-    // }
-    //     buttonClick();
-    // }
+    
+    
 
     // function to decrease the score by 1, each second
     function decrement() {
@@ -110,23 +117,35 @@ $(document).ready(function() {
 
     // on click to determine if user picked right answer, out of time, or wrong answer
         $(document).on("click",".answer-button", function() {
+            // assigning the user click(data attribute) to the userAnswer variable
             userAnswer = $(this).attr("data");
-            console.log("The user picked: " + userAnswer);
+                console.log("The user picked: " + userAnswer);
+                console.log(questionTracker);
+            // comparing if the userAnswer is correct or incorrect
             if(userAnswer === coreAnswer) {
                 console.log("you win");
                 winner();
             }
-            // else if (number===0) {
-            //     timeUp();
-            // }
             else {
                 console.log("you lose");
                 loser();
             }
+            // if (questionTracker === 5) {
+            //     $("#question-area").append("Game Over");
+            //     $("#questions").empty();
+                 
+            // }
+        })
+
+        $(document).on("click", "#reset-button", function () {
+            console.log("user reset")
+
+            newGame();
         })
     
 
     function winner() {
+        rightAnswer++
         firstQuestion();
         // $("#question-area").append("Correct Answer");
         // rightAnswer++;
@@ -140,10 +159,20 @@ $(document).ready(function() {
     // };
 
     function loser() {
-        // var loserGIF = "<img src='assets/images/shame.gif'height='175px' width='275px'/>"
-        $("#questions").empty();
-        $("#question-area").append("Shame! The right answer was " + coreAnswer);
-        $("#questions").append("<img src='assets/images/shame.gif'height='175px' width='275px'/>")
         wrongAnswer++;
+        firstQuestion();
+        $("#questions").empty();
+        $("#question-area").append("You know nothing, Jon Snow! The right answer was " + coreAnswer);
+        $("#questions").append("<img src='assets/images/shame.gif'height='175px' width='275px'/>")
+    }
+
+    function newGame() {
+        rightAnswer = 0;
+        wrongAnswer = 0;
+        notAnswered = 0;
+        userAnswer = "";
+        questionTracker = 0;
+        coreAnswer = "";
+        firstQuestion();
     }
 })
