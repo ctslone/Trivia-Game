@@ -40,6 +40,10 @@ body {
     border-color: rgb(209, 184, 42);
 }
 
+#reset-button {
+    margin-bottom: 25px;
+}
+
 #questions {
     height: 300px;
     margin-bottom: 20px;

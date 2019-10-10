@@ -21,6 +21,20 @@
 // when user goes through all question, display a results screen that shows,
     // correct answers, incorrect, and time up answers
 
+// TIMER PSEUDOCODE
+// when the user clicks the start button, it runs the firstQuestion function and also starts a timer of 10 seconds
+// The timer text is displayed on the page in a div saying "Time remianing: #"
+// Every 1000ms, the time decreases by 1 (10, 9, 8 etc...)
+// When the user selects an answer, the timer stops and a page is diplayd that says if they got it right or wrong and shows a gif. This page stays on screen for 3 seconds and then automatically switches to the next question (firstQuestion function?)
+// if the user runs out of time (time === 0) then display a screen which shows the correct answer and says you ran out of time
+
+// LEFT TODO
+// --DONE-- get timer to show on screen, countodown and stop when user selects answer 
+// --DONE-- get timer to reset upon loading a new question 
+// --DONE-- show GIFs and win/lose phrase upon selection of an answer (timer stops)
+// get winner, loser and noguess screen to display for only 3 seconds then load nextQuestion
+// show game results screen with right, wrong, and no guess variables
+
 // run the whole game once the document loads
 $(document).ready(function() {
     // creating variables to be used within the game
@@ -33,6 +47,7 @@ $(document).ready(function() {
     var questionTracker = 0;
     var coreAnswer = "";
     var time = 10;
+    var intervalId;
 
     // creating the trivia questions. an array, that contains an array inside of an object...
     var triviaQuestions = [
@@ -77,39 +92,40 @@ $(document).ready(function() {
         // emptying the divs before displaying a question
         $("#questions").empty();
         $("#question-area").empty();
+        $("#game-results").empty();
+        $("#timer").empty();
+        time = 10;
             console.log(triviaQuestions[questionTracker].question);
         // assigning the correct answer of the current question to a variable to compare later
         coreAnswer = triviaQuestions[questionTracker].correctAnswer;
             console.log("The right answer is: " + coreAnswer);
         // display the first question in the array using the custon question tracker variable for index
         $("#question-area").append("<p>" + triviaQuestions[questionTracker].question + "</p>");
-        // $("#timer").append("<p> Time remaining: " + setTimeout(function() { alert("Hello"); }, 5000) + "</p")
+        $("#timer").append("<p> Time remaining: " + time + "</p>")
         // use a for loop to display all of the answer choices
         for (var i = 0; i<triviaQuestions[questionTracker].answers.length; i++) {
-            console.log(triviaQuestions[questionTracker].answers[i])
+            console.log(triviaQuestions[questionTracker].answers[i]);
             // prepending each answer as a button to the screen
-            $("#questions").append("<button type='button' data='" + triviaQuestions[questionTracker].answers[i] + "' class='answer-button d-flex justify-content-center btn btn-outline-warning btn-group-vertical'><p>" + triviaQuestions[questionTracker].answers[i] + "</p></button>")
+            $("#questions").append("<button type='button' data='" + triviaQuestions[questionTracker].answers[i] + "' class='answer-button d-flex justify-content-center btn btn-outline-warning btn-group-vertical'><p>" + triviaQuestions[questionTracker].answers[i] + "</p></button>");
         }
         // adding one to the question tracker each time to tell it which question index to display (0-3)
         questionTracker += 1;
-
+        // if all the questions have been answered, display they end game screen
         if (questionTracker >= 5) {
-            $("#question-area").empty().text("Your Game hath Concluded").append("<div>You got " + rightAnswer + " answers right</div>").append("<div>You got " + wrongAnswer + " answers wrong</div>")
+            // appending results and gif to end game screen
+            $("#game-results").empty().append("<div>Your Game hath Concluded</div>").append("<div>You got " + rightAnswer + " answers right</div>").append("<div>You got " + wrongAnswer + " answers wrong</div>")
             $("#questions").empty().append("<button id='reset-button' type='button' class='btn btn-lg btn-outline-warning'>Play Again?</button>").append("<img src='assets/images/new-game.gif'height='175px' width='275px'/>")
-
-            return;
-             
+            return;  
         }
-    
+        // calling the run function for timing the questions
+        run();
     }
     
-    
-
     // function to decrease the score by 1, each second
     function decrement() {
         time--;
-        $("#time").append("<h2>" + number + "</h2>");
-        if (number === 0) {
+        $("#timer").html("<p> Time remaining: " + time + "</p>");
+        if (time === 0) {
           stop();
           alert("Time Up!");
         }
@@ -130,11 +146,6 @@ $(document).ready(function() {
                 console.log("you lose");
                 loser();
             }
-            // if (questionTracker === 5) {
-            //     $("#question-area").append("Game Over");
-            //     $("#questions").empty();
-                 
-            // }
         })
 
         $(document).on("click", "#reset-button", function () {
@@ -145,12 +156,14 @@ $(document).ready(function() {
     
 
     function winner() {
+        stop();
         rightAnswer++
-        firstQuestion();
-        // $("#question-area").append("Correct Answer");
-        // rightAnswer++;
-        // userAnswer = triviaQuestions[questionTracker].correctAnswer;
-        // console.log(rightAnswer);
+        // firstQuestion();
+        $("#questions").empty();
+        $("#question-area").empty()
+        $("#question-area").append("Huzzah! You're a smart lad!");
+        $("#questions").append("<img src='assets/images/eyebrows.gif'height='175px' width='275px'/>");
+        
     };
 
     // function timeUp() {
@@ -159,11 +172,13 @@ $(document).ready(function() {
     // };
 
     function loser() {
+        stop();
         wrongAnswer++;
-        firstQuestion();
+        // firstQuestion();
         $("#questions").empty();
-        $("#question-area").append("You know nothing, Jon Snow! The right answer was " + coreAnswer);
-        $("#questions").append("<img src='assets/images/shame.gif'height='175px' width='275px'/>")
+        $("#question-area").empty()
+        $("#question-area").append("You know nothing, Jon Snow! The right answer was '" + coreAnswer + "'");
+        $("#questions").append("<img src='assets/images/shame.gif'height='175px' width='275px'/>");
     }
 
     function newGame() {
@@ -175,4 +190,15 @@ $(document).ready(function() {
         coreAnswer = "";
         firstQuestion();
     }
+
+    // run timer function
+    function run() {
+        clearInterval(intervalId);
+        intervalId = setInterval(decrement, 1000) 
+    }
+    // stop time function
+    function stop() {
+        clearInterval(intervalId);
+    }
+
 })
