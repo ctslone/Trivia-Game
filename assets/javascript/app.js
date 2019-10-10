@@ -38,7 +38,7 @@
 // run the whole game once the document loads
 $(document).ready(function() {
     // creating variables to be used within the game
-    var questionTime = 10000;
+    // var questionTime = 10000;
     var rightAnswer = 0;
     var wrongAnswer = 0;
     var notAnswered = 0;
@@ -48,6 +48,7 @@ $(document).ready(function() {
     var coreAnswer = "";
     var time = 10;
     var intervalId;
+    var timeout;
 
     // creating the trivia questions. an array, that contains an array inside of an object...
     var triviaQuestions = [
@@ -127,7 +128,7 @@ $(document).ready(function() {
         $("#timer").html("<p> Time remaining: " + time + "</p>");
         if (time === 0) {
           stop();
-          alert("Time Up!");
+          timeUp();
         }
       }
 
@@ -158,27 +159,38 @@ $(document).ready(function() {
     function winner() {
         stop();
         rightAnswer++
-        // firstQuestion();
         $("#questions").empty();
         $("#question-area").empty()
         $("#question-area").append("Huzzah! You're a smart lad!");
         $("#questions").append("<img src='assets/images/eyebrows.gif'height='175px' width='275px'/>");
+        timeout = setTimeout(function() {
+            firstQuestion();
+        }, 3000)
         
     };
 
-    // function timeUp() {
-    //     $("#question-area").append("Out of Time");
-    //     notAnswered++;
-    // };
+    function timeUp() {
+        stop();
+        notAnswered++;
+        $("#questions").empty();
+        $("#question-area").empty()
+        $("#question-area").append("Time is up! The right answer was '" + coreAnswer + "'");
+        $("#questions").append("<img src='assets/images/shame.gif'height='175px' width='275px'/>");
+        timeout = setTimeout(function() {
+            firstQuestion();
+        }, 3000)
+    };
 
     function loser() {
         stop();
         wrongAnswer++;
-        // firstQuestion();
         $("#questions").empty();
         $("#question-area").empty()
         $("#question-area").append("You know nothing, Jon Snow! The right answer was '" + coreAnswer + "'");
         $("#questions").append("<img src='assets/images/shame.gif'height='175px' width='275px'/>");
+        timeout = setTimeout(function() {
+            firstQuestion();
+        }, 3000)
     }
 
     function newGame() {
