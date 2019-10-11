@@ -1,11 +1,11 @@
 @font-face {
     font-family: GOT;
-    src: url(../css/GOT.ttf)
+    src: url(./GOT.ttf)
 }
 
 @font-face {
     font-family: ALEAWBB_;
-    src: url(../css/ALEAWBB_.ttf)
+    src: url(./ALEAWBB_.ttf)
 }
 
 body {
