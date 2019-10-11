@@ -4,12 +4,12 @@
 }
 
 @font-face {
-    font-family: ALEAWBB_;
-    src: url(./ALEAWBB_.ttf)
+    font-family: main-font;
+    src: url(./main-font.ttf)
 }
 
 body {
-    font-family: ALEAWBB_;
+    font-family: main-font;
     background-image: url(../images/knight.jpg);
     background-position: center center;
     background-repeat: no-repeat;
