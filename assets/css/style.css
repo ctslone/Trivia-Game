@@ -3,7 +3,13 @@
     src: url(../css/GOT.ttf)
 }
 
+@font-face {
+    font-family: ALEAWBB_;
+    src: url(../css/ALEAWBB_.ttf)
+}
+
 body {
+    font-family: ALEAWBB_;
     background-image: url(../images/knight.jpg);
     background-position: center center;
     background-repeat: no-repeat;
@@ -18,6 +24,7 @@ body {
     height: 80%;
     margin: 0 auto;
     margin-top: 25px;
+    margin-bottom: 25px;
     border-radius: 20px;
 }
 
@@ -31,8 +38,11 @@ body {
 }
 
 #question-area {
-    /* padding: 5px; */
-    /* text-align: center; */
+    font-size: 18px;
+}
+
+#timer {
+    font-size: 18px;
 }
 
 #start {
@@ -55,4 +65,35 @@ img {
 
 .answer-button {
     margin: 5px;
+}
+
+/* media queries */
+@media screen and (max-width: 350px) {
+
+    #title {
+        /* letter-spacing: 2px;
+        word-spacing: 3px; */
+        font-size: 24px;
+    }
+}
+
+@media screen and (max-width: 640px) {
+
+    #question-area {
+        font-size: 12px;
+    }
+
+    #game-results {
+        font-size: 12px;
+    }
+    
+    #timer {
+        font-size: 12px;
+    }
+
+    .answer-button {
+        font-size: 12px;
+    }
+
+
 }
