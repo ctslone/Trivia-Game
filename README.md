@@ -2,12 +2,16 @@
 
 Test your Westerosi knowledge against the clock in this Game of Thrones themed trivia game!
 
+![](assets/images/questions.png)
+
 ## Getting Started
 
 Want to try it out?
 Just follow this link: [Game of Thrones Trivia](https://ctslone.github.io/Trivia-Game/)
 
 Note! See if you can get all questions right. If you do, you get a special message at the end!
+
+![](assets/images/correct.png)
 
 ## Mobile Friendly
 
