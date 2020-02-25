@@ -38,5 +38,8 @@ A few challenges that I faced when creating this game were:
 
 ## Authors
 
-* Charlie Slone - [GitHub](https://github.com/ctslone) - [LinkedIn](https://www.linkedin.com/in/charlie-slone-704311a9/)
+* Charlie Slone
+    * [GitHub](https://github.com/ctslone)
+    * [LinkedIn](https://www.linkedin.com/in/charlie-slone-704311a9/)
+    * [Portfolio](https://ctslone.github.io/Updated-Portfolio/)
 
